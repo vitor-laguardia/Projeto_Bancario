@@ -13,6 +13,10 @@ namespace Projeto_Banco
         private Agencia agencia;
         private List<Conta> contas = new List<Conta>();
 
+        public string Nome { get => nome; set => nome = value; }
+        public string Cpf { get => cpf; set => cpf = value; }
+        internal Agencia Agencia { get => agencia; set => agencia = value; }
+
         public Cliente (string nome, string cpf, Agencia agencia)
         {
 

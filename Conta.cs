@@ -34,7 +34,7 @@ namespace Projeto_Banco
 
         public void depositar (double valor)
         {
-
+            Console.WriteLine("Valor de {0} depositado com sucesso na conta {1}", valor, this.IdConta);
         }
 
         public void informarSaldo()

@@ -11,15 +11,41 @@ namespace Projeto_Banco
         private int idAgencia;
         private List<Cliente> clientes = new List<Cliente>();
         private List<Conta> contas = new List<Conta>();
+        private static int contadorAgencia = 0;
 
 
         public int IdAgencia { get => idAgencia; set => idAgencia = value; }
-        internal List<Cliente> Clientes { get => clientes; set => clientes = value; }
-        internal List<Conta> Contas { get => contas; set => contas = value; }
+
+        public void setCliente(Cliente cliente)
+        {
+            if (cliente != null)
+            {
+                this.clientes.Add(cliente);
+                Console.WriteLine("Cliente {0} cadastrado com sucesso na agência {1}", cliente.Nome, this.IdAgencia);
+
+            }
+        }
+
+
+        public void setConta (Conta conta)
+        {
+            if (conta != null)
+            {
+                this.contas.Add(conta);
+                Console.WriteLine("Conta {0} adicionada com sucesso", conta.IdConta);
+            }
+
+            else
+                Console.WriteLine("Conta nula enviada para ser cadastrada");
+        }
+
+      
+        public static int ContadorAgencia { get => contadorAgencia; set => contadorAgencia = value; }
 
         public Agencia(int numero)
         {
-
+            ContadorAgencia++;
+            this.IdAgencia = ContadorAgencia;
         }
 
         public void cadastrarCliente (string nome, string cpf)
@@ -54,13 +80,30 @@ namespace Projeto_Banco
 
         public Cliente getCliente (string cpf)
         {
-            return clientes[0];
+            try
+            {
+                return this.clientes.SingleOrDefault(p => p.Cpf == cpf);
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("Não existe esse cliente nessa agência");
+                return null;
+            }
 
         }
 
         public Conta getConta (int idConta)
         {
-            return contas[0];
+            try
+            {
+                return this.contas.SingleOrDefault(p => p.IdConta == idConta);
+            }
+
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("Não existe a conta {0} na agência {1}", idConta, this.IdAgencia);
+                return null;
+            }
         }
 
         public Boolean verificaCPF(int cpf)
